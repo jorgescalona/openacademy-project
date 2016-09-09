@@ -25,6 +25,28 @@
 
         <menuitem id="configuration_menu" name="Configuration" parent="main_openacademy_menu"/>
         <menuitem id="contact_menu" name="Contacts" parent="configuration_menu" action="contact_list_action"/>
+    <!--Se define la acción para la lista de categorias heredada de res.partner.category -->
+        <record model="ir.actions.act_window" id="contact_cat_list_action">
+            <field name="name">Teacher Categorys</field>
+            <field name="res_model">res.partner.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--Se define el item de menú para la lista de categorías
+        cuyo menú parent debe ser el de configuración -->
+        <menuitem id="contact_cat_menu" name="Teacher Categorys" parent="configuration_menu"
+            action="contact_cat_list_action"/>
+        <!-- Se agregan las categorias al modelo heredado res.partner es de notar
+            que no usan XPath para localizar las tags correspondientes ps las mismas
+            se conocen -->
+        <record model="res.partner.category" id="teacher1">
+            <field name="name">Teacher / level 1</field>
+        </record>
+        <record model="res.partner.category" id="teacher2">
+            <field name="name">Teacher / level 2</field>
+        </record>
+        <record model="res.partner.category" id="teacher3">
+            <field name="name">Instructor</field>
+        </record>
 
     </data>
 </openerp>

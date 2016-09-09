@@ -15,6 +15,7 @@
                         <group string="General">
                             <field name="course_id"/>
                             <field name="name"/>
+                            <field name="taken_seats" widget="progressbar"/>
                             <field name="instructor_id"/>
                         </group>
                         <group string="Schedule">
@@ -26,6 +27,11 @@
                         <field name="attendee_ids"/>
                     </sheet>
                 </form>
+                <!--<tree string="Session Tree">
+                    <field name="name"/>
+                    <field name="course_id"/>
+                    <field name="taken_seats" widget="progressbar"/>
+                </tree>-->
             </field>
         </record>
 
