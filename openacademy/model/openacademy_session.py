@@ -19,6 +19,7 @@ class Session(models.Model):
 
     taken_seats = fields.Float(string="Taken seats", compute='_taken_seats', store=True)
     active = fields.Boolean(default=True)
+    color = fields.Integer()
     end_date = fields.Date(string="End Date", store=True,
                            compute='_get_end_date', inverse='_set_end_date')
     hours = fields.Float(string="Duration in hours",
