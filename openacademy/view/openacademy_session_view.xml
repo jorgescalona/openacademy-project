@@ -36,6 +36,31 @@
             </field>
         </record>
 
+        <!-- session tree view -->
+        <record model="ir.ui.view" id="session_tree_view">
+            <field name="name">session.tree</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <!--
+                <tree string="Arbol de Sesiones" decoration-info="duration&lt;5" decoration-danger="duration&gt;15">
+                a partir de la V9 colors se deja de usar por los siguientes decoradores:
+                decoration-it - shows the line in ITALICS
+                decoration-danger - shows the line in LIGHT RED
+                decoration-info - shows the line in LIGHT BLUE
+                decoration-muted - shows the line in LIGHT GRAY
+                decoration-primary - shows the line in LIGHT PURPLE
+                decoration-success - shows the line in LIGHT GREEN
+                decoration-warning - shows the line in LIGHT BROWN
+                -->
+                <tree string="Arbol de Sesiones" colors="blue:duration&lt;5;red:duration&gt;15">
+                    <field name="name"/>
+                    <field name="course_id"/>
+                    <field name="duration" invisible="1"/>
+                    <field name="taken_seats" widget="progressbar"/>
+                </tree>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="session_list_action">
             <field name="name">Sessions</field>
             <field name="res_model">openacademy.session</field>
