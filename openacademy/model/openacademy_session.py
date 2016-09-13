@@ -19,12 +19,30 @@ class Session(models.Model):
 
     taken_seats = fields.Float(string="Taken seats", compute='_taken_seats', store=True)
     active = fields.Boolean(default=True)
+    color = fields.Integer()
     end_date = fields.Date(string="End Date", store=True,
                            compute='_get_end_date', inverse='_set_end_date')
     hours = fields.Float(string="Duration in hours",
                          compute='_get_hours', inverse='_set_hours')
     attendees_count = fields.Integer(
         string="Attendees count", compute='_get_attendees_count', store=True)
+    state = fields.Selection([
+        ('draft',"Draft"),
+        ('confirmed',"Confirmed"),
+        ('done',"Done"),
+    ], default='draft')
+
+    @api.one
+    def action_draft(self):
+        self.state = 'draft'
+
+    @api.one
+    def action_confirm(self):
+        self.state = 'confirmed'
+
+    @api.one
+    def action_done(self):
+        self.state = 'done'
 
     @api.one # para que entre a c/u de los registros
     @api.depends('seats', 'attendee_ids')
