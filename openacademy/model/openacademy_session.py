@@ -23,6 +23,8 @@ class Session(models.Model):
                            compute='_get_end_date', inverse='_set_end_date')
     hours = fields.Float(string="Duration in hours",
                          compute='_get_hours', inverse='_set_hours')
+    attendees_count = fields.Integer(
+        string="Attendees count", compute='_get_attendees_count', store=True)
 
     @api.one # para que entre a c/u de los registros
     @api.depends('seats', 'attendee_ids')
@@ -49,6 +51,11 @@ class Session(models.Model):
                     'message': 'Increase seats or remove exceess attendees',
                 }
             }
+
+    @api.one
+    @api.depends('attendee_ids')
+    def _get_attendees_count(self):
+            self.attendees_count = len(self.attendee_ids)
 
     @api.one
     @api.constrains('instructor_id', 'attendee_ids')
