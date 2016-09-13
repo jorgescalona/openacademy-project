@@ -17,10 +17,12 @@ class Session(models.Model):
                                 ondelete='cascade', string="Course", required=True)
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
 
-    taken_seats = fields.Float(string="Taken seats", compute='_taken_seats')
+    taken_seats = fields.Float(string="Taken seats", compute='_taken_seats', store=True)
     active = fields.Boolean(default=True)
     end_date = fields.Date(string="End Date", store=True,
                            compute='_get_end_date', inverse='_set_end_date')
+    hours = fields.Float(string="Duration in hours",
+                         compute='_get_hours', inverse='_set_hours')
 
     @api.one # para que entre a c/u de los registros
     @api.depends('seats', 'attendee_ids')
@@ -80,4 +82,14 @@ class Session(models.Model):
         start_date = fields.Datetime.from_string(self.start_date)
         end_date = fields.Datetime.from_string(self.end_date)
         self.duration = (end_date - start_date).days + 1
+
+    @api.one
+    @api.depends('duration')
+    def _get_hours(self):
+        self.hours = self.duration * 24
+
+    @api.one
+    def _set_hours(self):
+        self.duration = self.hours / 24
+
 
