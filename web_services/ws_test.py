@@ -44,24 +44,11 @@ new_session_id = call(model, method_name, {
 
 print "new session id: ",new_session_id
 
-
-
-
 '''
-
-
 domain = [('name', '=', 'Curso Odoo 1')]
 course_ids = call('openacademy.course', method_name, domain)
 course_id = course_ids[0]
 print "course_ids",course_ids
-
-
-
-
-
-
-
-
 
 # 3 Create new session
 session_id = call('openacademy.session', 'create', {
