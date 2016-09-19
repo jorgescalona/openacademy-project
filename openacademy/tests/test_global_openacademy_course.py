@@ -4,6 +4,7 @@
 from psycopg2 import IntegrityError
 from openerp.tests.common import TransactionCase
 from openerp.tools import mute_logger
+import sys
 
 
 class GlobalOpenacademyCourse(TransactionCase):
@@ -53,6 +54,7 @@ class GlobalOpenacademyCourse(TransactionCase):
         '''
         new_id = self.create_course('test1', 'test_description', None)
         # print "new_id: ", new_id
+        sys.stdout.write("new_id: ", new_id)
         with self.assertRaisesRegexp(
             IntegrityError,
             'duplicate key value violates unique constraint'
@@ -60,6 +62,7 @@ class GlobalOpenacademyCourse(TransactionCase):
         ):
             new_id2 = self.create_course('test1', 'test_description', None)
             # print "new_id2: ", new_id2
+            sys.stdout.write("new_id2: ", new_id2)
 
     def test_15_duplicate_course(self):
         '''
@@ -68,3 +71,4 @@ class GlobalOpenacademyCourse(TransactionCase):
         course = self.env.ref('openacademy.course0')
         course_id = course.copy()
         # print "course_id: ", course_id
+        sys.stdout.write("course_id: ", course_id)
