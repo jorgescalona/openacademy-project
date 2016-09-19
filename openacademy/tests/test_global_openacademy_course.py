@@ -1,12 +1,12 @@
-#/usr/bin/env python
 # -*- coding:utf-8 -*-
+
 
 from psycopg2 import IntegrityError
 from openerp.tests.common import TransactionCase
 from openerp.tools import mute_logger
 
-class GlobalOpenacademyCourse(TransactionCase):
 
+class GlobalOpenacademyCourse(TransactionCase):
     '''
     Global test to openacademy course model.
     Test create courses and trigger constraints.
@@ -21,9 +21,9 @@ class GlobalOpenacademyCourse(TransactionCase):
                       course_responsible_id):
         # create a course with parameters receiver
         course_id = self.course.create({
-            'name' : course_name,
-            'description' : course_description,
-            'responsible_id' : course_responsible_id,
+            'name': course_name,
+            'description': course_description,
+            'responsible_id': course_responsible_id,
         })
         return course_id
 
@@ -43,7 +43,7 @@ class GlobalOpenacademyCourse(TransactionCase):
             ' check constraint "openacademy_course_name_description_check"'
         ):
             # create a course with same name & description to raise error
-            self.create_course('test','test', None)
+            self.create_course('test', 'test', None)
 
     @mute_logger('openerp.sql_db')
     def test_20_two_course_same_name(self):
@@ -55,7 +55,8 @@ class GlobalOpenacademyCourse(TransactionCase):
         print "new_id: ", new_id
         with self.assertRaisesRegexp(
             IntegrityError,
-            'duplicate key value violates unique constraint "openacademy_course_name_unique"'
+            'duplicate key value violates unique constraint'
+            ' "openacademy_course_name_unique"'
         ):
             new_id2 = self.create_course('test1', 'test_description', None)
             print "new_id2: ", new_id2
