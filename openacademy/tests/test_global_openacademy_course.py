@@ -64,5 +64,6 @@ class GlobalOpenacademyCourse(TransactionCase):
         '''
         Test to duplicate course & check that work fine!
         '''
-        course = self.env.ref('openacademy.course0')
-        course.copy()
+        for i in range(4):
+            course = self.env.ref('openacademy.course0')
+            course.copy()
